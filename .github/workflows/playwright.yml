@@ -1,0 +1,41 @@
+name: Playwright UI
+run-name: QA ${{ inputs.orchestration_id }} - ${{ github.workflow }}
+on:
+  workflow_dispatch:
+    inputs:
+      orchestration_id:
+        description: Correlation ID from central orchestrator
+        required: false
+        type: string
+  pull_request:
+  push:
+    branches: [main, master]
+permissions:
+  contents: read
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Install project dependencies
+        run: npm install --no-audit --no-fund
+      - name: Install Chromium
+        run: npx playwright install --with-deps chromium
+      - name: Execute Playwright UI
+        run: npm run test:playwright
+      - name: Upload logs and reports
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: qa-playwright-${{ github.run_id }}
+          path: |
+            .qa-artifacts/
+            reports/
+          if-no-files-found: warn

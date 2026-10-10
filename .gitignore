@@ -1,0 +1,9 @@
+node_modules/
+.qa-artifacts/
+reports/
+config/ci.generated.json
+appium.log
+.env
+.DS_Store
+
+coverage/report.json
