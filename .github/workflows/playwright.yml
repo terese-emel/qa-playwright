@@ -26,6 +26,10 @@ jobs:
           node-version: '22'
       - name: Install project dependencies
         run: npm install --no-audit --no-fund
+      - name: Check linting
+        run: npm run lint
+      - name: Check formatting
+        run: npm run format:check
       - name: Install Chromium
         run: npx playwright install --with-deps chromium
       - name: Execute Playwright UI
