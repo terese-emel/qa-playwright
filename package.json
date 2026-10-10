@@ -6,7 +6,7 @@
   "scripts": {
     "test:playwright": "playwright test",
     "lint": "eslint .",
-    "format:check": "prettier --check ."
+    "format:check": "prettier --check package.json eslint.config.mjs 'tests/**/*.{js,mjs,ts}' '.github/workflows/**/*.{yml,yaml}'"
   },
   "devDependencies": {
     "@playwright/test": "^1.56.0",
