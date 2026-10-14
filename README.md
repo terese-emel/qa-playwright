@@ -21,6 +21,16 @@ This project shows how I approach browser automation when the goal is a test sui
 
 There is no separate product UI to demo here—the project itself is the QA workflow. You can see it running in the [GitHub Actions history](https://github.com/terese-emel/qa-playwright/actions), where failed runs retain reports, traces, and screenshots under `reports/` and `.qa-artifacts/`. The design decisions are explained in [`docs/test-architecture.md`](docs/test-architecture.md).
 
+```mermaid
+flowchart LR
+    Test[Test scenario] --> Fixture[Playwright fixture]
+    Fixture --> Page[Page Object]
+    Page --> Browser[Browser / synthetic page]
+    Test --> Assert[Assertions]
+    Browser --> Artifact[Trace, screenshot, HTML and JUnit reports]
+    Artifact --> CI[GitHub Actions]
+```
+
 The workflow uses Playwright Test and TypeScript, with ESLint and Prettier enforcing consistency, GitHub Actions providing repeatable CI, and small Python scripts checking traceability and test-data safety. To try it locally, run `npm install`, then `npm run lint`, `npm run format:check`, and `npm run test:playwright`. All examples use synthetic data; credentials and other secrets are deliberately kept out of source control.
 
 To publish: `gh repo create YOUR-ACCOUNT/qa-playwright --private --source=. --remote=origin --push` after `git init -b main && git add . && git commit -m "Initial QA framework"`.
