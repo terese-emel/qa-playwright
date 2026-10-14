@@ -1,6 +1,6 @@
-import { test, expect } from "@playwright/test";
+import { expect, test } from "../fixtures/test";
 
-test("example domain loads", async ({ page }) => {
-  await page.goto("https://example.com");
-  await expect(page.locator("h1")).toHaveText("Example Domain");
+test("example domain loads", async ({ examplePage }) => {
+  await examplePage.open();
+  await expect(examplePage.heading).toHaveText("Example Domain");
 });

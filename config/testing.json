@@ -1,0 +1,9 @@
+{
+  "application": "synthetic-example-page",
+  "baseURL": null,
+  "testDataPolicy": "synthetic-only",
+  "orchestrationId": {
+    "source": "workflow_dispatch input",
+    "purpose": "run display correlation only; it does not change test behavior"
+  }
+}

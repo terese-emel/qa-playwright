@@ -6,11 +6,13 @@
   "scripts": {
     "test:playwright": "playwright test",
     "lint": "eslint .",
-    "format:check": "prettier --check package.json eslint.config.mjs 'tests/**/*.{js,mjs,ts}' '.github/workflows/**/*.{yml,yaml}'"
+    "format:check": "prettier --check package.json eslint.config.mjs playwright.config.ts 'pages/**/*.ts' 'fixtures/**/*.ts' 'tests/**/*.{js,mjs,ts}' 'config/**/*.json' '.github/workflows/**/*.{yml,yaml}'"
   },
   "devDependencies": {
     "@playwright/test": "^1.56.0",
     "@eslint/js": "^9.38.0",
+    "@typescript-eslint/eslint-plugin": "^8.46.0",
+    "@typescript-eslint/parser": "^8.46.0",
     "eslint": "^9.38.0",
     "globals": "^16.4.0",
     "prettier": "^3.6.2"
