@@ -1,5 +1,7 @@
 # qa-playwright
 
+[![CI](https://github.com/terese-emel/qa-playwright/actions/workflows/playwright.yml/badge.svg)](https://github.com/terese-emel/qa-playwright/actions/workflows/playwright.yml)
+
 Independent playwright QA automation repository. Includes its own tests, dependencies, AI instructions, and GitHub Actions. No dependency on the other repositories.
 
 ## Local usage
@@ -13,7 +15,7 @@ npm run test:playwright
 
 GitHub Actions: `.github/workflows/playwright.yml`.
 
-Sample smoke test uses a public demonstration endpoint; replace it with your application and assertions.
+The current smoke test uses a deterministic synthetic page so local and CI results are not dependent on public internet availability.
 
 ## Portfolio overview
 
@@ -32,6 +34,16 @@ flowchart LR
 ```
 
 The workflow uses Playwright Test and TypeScript, with ESLint and Prettier enforcing consistency, GitHub Actions providing repeatable CI, and small Python scripts checking traceability and test-data safety. To try it locally, run `npm install`, then `npm run lint`, `npm run format:check`, and `npm run test:playwright`. All examples use synthetic data; credentials and other secrets are deliberately kept out of source control.
+
+## Scenario coverage
+
+| Scenario | Purpose |
+| --- | --- |
+| Page loads | Confirms the basic user-facing path. |
+| Stable accessible heading | Demonstrates resilient locator strategy through the Page Object. |
+| CI failure evidence | Produces trace, screenshot, HTML, and JUnit output when a run fails. |
+
+These are foundation scenarios; the next application-specific layer would add validation, error states, and multi-role flows.
 
 To publish: `gh repo create YOUR-ACCOUNT/qa-playwright --private --source=. --remote=origin --push` after `git init -b main && git add . && git commit -m "Initial QA framework"`.
 
