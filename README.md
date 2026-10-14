@@ -17,9 +17,11 @@ Sample smoke test uses a public demonstration endpoint; replace it with your app
 
 ## Portfolio overview
 
-This repository demonstrates a maintainable Playwright UI automation workflow: deterministic tests, Page Object Model structure, fixtures, traceability, CI reporting, and failure artifacts. Its live demonstration is the [GitHub Actions workflow](https://github.com/terese-emel/qa-playwright/actions), not a hosted application. The architecture is documented in [`docs/test-architecture.md`](docs/test-architecture.md), and CI produces reports and screenshots under `reports/` and `.qa-artifacts/`.
+This project shows how I approach browser automation when the goal is a test suite that remains understandable as it grows. The smoke test is intentionally small, but it already uses a Page Object, a fixture, stable accessible locators, requirement traceability, and CI-friendly reporting. In other words, the test describes user intent while the reusable framework code owns setup and selectors.
 
-Technology: Playwright Test, TypeScript, ESLint, Prettier, GitHub Actions, and Python validation scripts. Run `npm install`, then `npm run lint`, `npm run format:check`, and `npm run test:playwright`. Tests use synthetic data only; secrets are never committed.
+There is no separate product UI to demo here—the project itself is the QA workflow. You can see it running in the [GitHub Actions history](https://github.com/terese-emel/qa-playwright/actions), where failed runs retain reports, traces, and screenshots under `reports/` and `.qa-artifacts/`. The design decisions are explained in [`docs/test-architecture.md`](docs/test-architecture.md).
+
+The workflow uses Playwright Test and TypeScript, with ESLint and Prettier enforcing consistency, GitHub Actions providing repeatable CI, and small Python scripts checking traceability and test-data safety. To try it locally, run `npm install`, then `npm run lint`, `npm run format:check`, and `npm run test:playwright`. All examples use synthetic data; credentials and other secrets are deliberately kept out of source control.
 
 To publish: `gh repo create YOUR-ACCOUNT/qa-playwright --private --source=. --remote=origin --push` after `git init -b main && git add . && git commit -m "Initial QA framework"`.
 
