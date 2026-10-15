@@ -102,7 +102,7 @@ CI runs the Sauce Demo journey against the locally checked-out sample app. For a
 
 There is no separate hosted product UI in this repository. The live demonstration is the [GitHub Actions workflow history](https://github.com/terese-emel/qa-playwright/actions). Failed runs are configured to retain reports, traces, and screenshots for investigation.
 
-The repository also includes Mermaid architecture diagrams and the configuration needed to produce CI evidence. The local grocery comparison journey is deterministic, and CI checks out Sauce Labs' MIT-licensed sample app into a temporary workspace so the Sauce Demo journey runs locally rather than against an uncontrolled public site.
+The repository also includes Mermaid architecture diagrams and the configuration needed to produce CI evidence. The local grocery comparison journey is deterministic, and CI starts a pinned Sauce Labs sample-app checkout so the browser journey runs locally rather than against an uncontrolled public site. Startup logs are retained with the test reports.
 
 ## Team agents and skills
 

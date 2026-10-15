@@ -24,17 +24,8 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: "24.9.0"
-      - name: Check out the local demo application
-        uses: actions/checkout@v4
-        with:
-          repository: saucelabs/sample-app-web
-          path: demo-app
       - name: Start the local demo application
-        working-directory: demo-app
-        run: |
-          npm install --no-audit --no-fund
-          nohup npm run start > "$RUNNER_TEMP/sample-app-web.log" 2>&1 &
-          for attempt in {1..30}; do curl --fail --silent http://127.0.0.1:3000/ && break || sleep 2; done
+        run: bash scripts/start-demo-app.sh
       - name: Install project dependencies
         run: npm install --no-audit --no-fund
       - name: Check linting
@@ -47,8 +38,8 @@ jobs:
         env:
           RUN_LIVE_DEMO: "true"
           DEMO_BASE_URL: http://127.0.0.1:3000
-          DEMO_USER: standard_user
-          DEMO_PASSWORD: secret_sauce
+          DEMO_USER: ${{ vars.DEMO_USER }}
+          DEMO_PASSWORD: ${{ vars.DEMO_PASSWORD }}
         run: npm run test:playwright
       - name: Upload logs and reports
         if: always()
@@ -58,4 +49,5 @@ jobs:
           path: |
             .qa-artifacts/
             reports/
+            ${{ runner.temp }}/sample-app-web.log
           if-no-files-found: warn
