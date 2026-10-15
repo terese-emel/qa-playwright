@@ -94,9 +94,9 @@ The current suite is intentionally a foundation rather than a pretend production
 
 The next layer would add price freshness, unavailable stores, boundary values, authentication, permissions, and multi-role journeys.
 
-The portfolio expansion uses Sauce Demo for a public, repeatable web journey and The Internet for focused browser edge cases. The local grocery comparison flow remains deterministic so pull requests do not depend entirely on an external site.
+The portfolio uses Sauce Labs' sample app for a repeatable web journey and The Internet for focused browser edge cases. The local grocery comparison flow remains deterministic, while CI runs the sample app from a temporary local checkout.
 
-The Sauce Demo journey is opt-in: set `RUN_LIVE_DEMO=true`, `DEMO_USER`, and `DEMO_PASSWORD`, then run `npm run test:live-demo`. Pull requests continue to use deterministic local tests by default.
+CI runs the Sauce Demo journey against the locally checked-out sample app. For a separate hosted-demo experiment, set `RUN_LIVE_DEMO=true`, `DEMO_BASE_URL`, `DEMO_USER`, and `DEMO_PASSWORD` explicitly; hosted-demo access is not required for pull requests.
 
 ## Evidence and live demo
 
