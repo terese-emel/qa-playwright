@@ -79,8 +79,6 @@ The workflow uses Playwright Test and TypeScript, with ESLint and Prettier enfor
 
 These are foundation scenarios; the next application-specific layer would add validation, error states, and multi-role flows.
 
-To publish: `gh repo create YOUR-ACCOUNT/qa-playwright --private --source=. --remote=origin --push` after `git init -b main && git add . && git commit -m "Initial QA framework"`.
-
 ## Independent ownership and orchestration
 This repository owns its own tests, dependencies, fixtures, configuration and GitHub Actions. It can run without the orchestrator. The separate `qa-orchestrator` repository may trigger its workflow and read the resulting status; it does not modify this repository. Make test changes here and review them independently.
 
@@ -95,11 +93,6 @@ This repository owns its own tests, dependencies, fixtures, configuration and Gi
 | Coverage checker | `agents/test-coverage-checker.md` | Verifies requirement traceability |
 | Security validator | `agents/test-data-security-validator.md` | Checks for real data in test artifacts |
 
-## Flaky test analysis
-The independent subagent is defined in `agents/flaky-test-analyzer.md`. Collect JUnit XML reports across runs, then run `python3 scripts/analyze_flakiness.py path/to/junit-history --output flaky-report.json`. A mixed pass/fail history is flagged for investigation, not automatically fixed. Review is required before commits; PRs may change at most 10 files.
+## Quality checks
 
-### Synthetic test data validation
-All test cases and fixtures must use generated/mock data, never production or personal information. Run `python3 scripts/validate_test_data.py --root .`. The GitHub Actions security check runs on PRs and main-branch pushes. This heuristic scan is a first line of defense, not a substitute for human review or comprehensive secret scanning.
-
-### Requirement coverage checker
-Populate `coverage/manifest.json` with requirement IDs and test case IDs (`test_cases[].requirements` is an array of requirement IDs). Run `python3 scripts/check_test_coverage.py`. Empty manifests intentionally fail CI until populated. This is requirement traceability, not line or executed-test coverage.
+The supporting agents help keep this browser suite dependable: one looks for unpredictable tests, one helps keep personal data and secrets out of the project, and one checks that important product needs have tests behind them. They support human review; they do not replace running the suite or making an engineering judgment.
