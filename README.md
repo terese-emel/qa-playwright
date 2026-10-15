@@ -115,6 +115,8 @@ The repository separates team responsibilities so work can happen in parallel wi
 
 Portable versions of the QA capabilities live under [`.agents/skills/`](.agents/skills/). Shared cross-tool skills, including `jira-acli` and `skill-creator`, live in the [`qa-orchestrator`](https://github.com/terese-emel/qa-orchestrator) repository. The Jira skill can read stories and acceptance criteria for the Requirement Analyst; any Jira write—comment, edit, transition, assignment, or bug creation—requires explicit approval.
 
+The lightweight [`agent-router`](.agents/skills/agent-router/SKILL.md) selects one primary responsibility at a time. Small handoff files in [`coverage/templates/`](coverage/templates/) let agents share context without carrying full conversations or logs.
+
 ## Safety and review
 
 All examples use synthetic data. Secrets, credentials, personal information, production records, and unredacted traces do not belong in this repository or in Jira updates.

@@ -1,0 +1,12 @@
+{
+  "task": "<short-task-name>",
+  "owner": "<person-or-team>",
+  "status": "draft",
+  "current_stage": "requirement-analysis",
+  "input_artifacts": [],
+  "output_artifacts": [],
+  "decisions": [],
+  "open_questions": [],
+  "next_owner": "<person-or-team>",
+  "last_updated": "YYYY-MM-DD"
+}
