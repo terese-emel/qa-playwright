@@ -1,0 +1,26 @@
+import { expect, test } from "../fixtures/test";
+
+const runLiveDemo = process.env.RUN_LIVE_DEMO === "true";
+const username = process.env.DEMO_USER;
+const password = process.env.DEMO_PASSWORD;
+
+test.describe("Sauce Demo demonstration", () => {
+  test.skip(
+    !runLiveDemo || !username || !password,
+    "Set RUN_LIVE_DEMO=true, DEMO_USER, and DEMO_PASSWORD to use the public demo.",
+  );
+
+  test("adds a product to the cart and reaches checkout", async ({ page }) => {
+    await page.goto("https://www.saucedemo.com/");
+    await page.getByPlaceholder("Username").fill(username!);
+    await page.getByPlaceholder("Password").fill(password!);
+    await page.getByRole("button", { name: "Login" }).click();
+
+    await expect(page.getByText("Products")).toBeVisible();
+    await page.getByRole("button", { name: "Add to cart" }).first().click();
+    await page.getByRole("link", { name: /cart/i }).click();
+    await expect(page.getByText("Your Cart")).toBeVisible();
+    await page.getByRole("button", { name: "Checkout" }).click();
+    await expect(page.getByText("Checkout: Your Information")).toBeVisible();
+  });
+});

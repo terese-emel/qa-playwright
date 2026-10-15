@@ -5,6 +5,7 @@
   "type": "module",
   "scripts": {
     "test:playwright": "playwright test",
+    "test:live-demo": "RUN_LIVE_DEMO=true playwright test tests/saucedemo.demo.spec.ts",
     "lint": "eslint .",
     "format:check": "prettier --check package.json eslint.config.mjs playwright.config.ts 'pages/**/*.ts' 'fixtures/**/*.ts' 'tests/**/*.{js,mjs,ts}' 'config/**/*.json' '.github/workflows/**/*.{yml,yaml}'"
   },
