@@ -4,6 +4,16 @@
       "id": "REQ-EXAMPLE-001",
       "description": "The example page displays its expected heading.",
       "required": true
+    },
+    {
+      "id": "REQ-GROCERY-001",
+      "description": "A shopper can compare prices for a named grocery item.",
+      "required": true
+    },
+    {
+      "id": "REQ-GROCERY-002",
+      "description": "A shopper receives a clear message when no grocery item is entered.",
+      "required": true
     }
   ],
   "test_cases": [
@@ -11,6 +21,16 @@
       "id": "TC-EXAMPLE-001",
       "description": "Verify the example page heading.",
       "requirements": ["REQ-EXAMPLE-001"]
+    },
+    {
+      "id": "TC-GROCERY-001",
+      "description": "Compare prices for a named grocery item.",
+      "requirements": ["REQ-GROCERY-001"]
+    },
+    {
+      "id": "TC-GROCERY-002",
+      "description": "Show guidance when the grocery item is missing.",
+      "requirements": ["REQ-GROCERY-002"]
     }
   ]
 }

@@ -2,7 +2,7 @@
 
 [![CI](https://github.com/terese-emel/qa-playwright/actions/workflows/playwright.yml/badge.svg)](https://github.com/terese-emel/qa-playwright/actions/workflows/playwright.yml)
 
-This repository is a portfolio project showing how a team can build and maintain reliable browser tests—not just write a few scripts that click through a page.
+This repository is a portfolio project showing how a team can build and maintain reliable browser tests—not just write a few scripts that click through a page. It includes a small, self-contained grocery price comparison journey so the workflow can be seen in action without relying on a live customer system.
 
 It demonstrates a complete quality workflow around Playwright: clarify the requirement, plan the risks, build maintainable tests, review failures honestly, and keep the work safe and traceable.
 
@@ -87,11 +87,12 @@ The current suite is intentionally a foundation rather than a pretend production
 
 | Scenario | What it demonstrates |
 | --- | --- |
-| Page loads | A basic user-facing flow and visible outcome |
-| Accessible heading | Stable, semantic locator use through a Page Object |
+| Grocery price comparison | A shopper can compare prices for a named item |
+| Missing item guidance | The user receives a clear message instead of an empty result |
+| Accessible heading and controls | Semantic labels, roles, and a live status message are used |
 | Failure evidence | CI-ready HTML, JUnit, trace, and screenshot configuration |
 
-The next application-specific layer would add validation errors, boundary values, authentication, permissions, and multi-role journeys.
+The next layer would add price freshness, unavailable stores, boundary values, authentication, permissions, and multi-role journeys.
 
 ## Evidence and live demo
 

@@ -1,6 +1,8 @@
 name: Requirement Coverage Check
 on:
   pull_request:
+  push:
+    branches: [master]
   workflow_dispatch:
 permissions:
   contents: read
@@ -13,9 +15,6 @@ jobs:
         with:
           python-version: "3.12"
       - name: Check requirement traceability
-        # continue-on-error: an empty bootstrap manifest should not block PRs;
-        # the report artifact always captures the result for review.
-        continue-on-error: true
         run: python3 scripts/check_test_coverage.py --manifest coverage/manifest.json --output coverage/report.json
       - name: Upload coverage report
         if: always()
