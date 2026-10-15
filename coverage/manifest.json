@@ -1,4 +1,16 @@
 {
-  "requirements": [],
-  "test_cases": []
+  "requirements": [
+    {
+      "id": "REQ-EXAMPLE-001",
+      "description": "The example page displays its expected heading.",
+      "required": true
+    }
+  ],
+  "test_cases": [
+    {
+      "id": "TC-EXAMPLE-001",
+      "description": "Verify the example page heading.",
+      "requirements": ["REQ-EXAMPLE-001"]
+    }
+  ]
 }
