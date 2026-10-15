@@ -27,7 +27,7 @@ jobs:
       - name: Start the local demo application
         run: bash scripts/start-demo-app.sh
       - name: Install project dependencies
-        run: npm install --no-audit --no-fund
+        run: npm ci --no-audit --no-fund
       - name: Check linting
         run: npm run lint
       - name: Check formatting
