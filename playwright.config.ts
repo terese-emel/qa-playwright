@@ -17,8 +17,6 @@ export default defineConfig({
     screenshot: "only-on-failure",
     // CLI mode: snapshots saved to disk, context not sent into agent context window.
     // MCP mode: live page state sent to agent at every step; use for exploration/debugging.
-    ...(agentMode === "mcp"
-      ? { _optionValueForMcpMode: true }
-      : {}),
+    ...(agentMode === "mcp" ? { _optionValueForMcpMode: true } : {}),
   },
 });
