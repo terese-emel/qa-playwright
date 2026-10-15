@@ -102,7 +102,7 @@ The Sauce Demo journey is opt-in: set `RUN_LIVE_DEMO=true`, `DEMO_USER`, and `DE
 
 There is no separate hosted product UI in this repository. The live demonstration is the [GitHub Actions workflow history](https://github.com/terese-emel/qa-playwright/actions). Failed runs are configured to retain reports, traces, and screenshots for investigation.
 
-The repository also includes Mermaid architecture diagrams and the configuration needed to produce CI evidence. The local grocery comparison journey is deterministic; the Sauce Demo journey is opt-in and clearly labelled rather than presented as a fake product demo.
+The repository also includes Mermaid architecture diagrams and the configuration needed to produce CI evidence. The local grocery comparison journey is deterministic, and CI checks out Sauce Labs' MIT-licensed sample app into a temporary workspace so the Sauce Demo journey runs locally rather than against an uncontrolled public site.
 
 ## Team agents and skills
 
