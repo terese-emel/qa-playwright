@@ -25,24 +25,6 @@ Delegate intermittent-failure investigation to `agents/flaky-test-analyzer.md`; 
 - Delegate security review to `agents/test-data-security-validator.md`; run `python3 scripts/validate_test_data.py --root .` before requesting commit approval.
 - Security findings block changes until resolved. Existing explicit review-before-commit and 10-file PR rules remain mandatory.
 
-## Mandatory synthetic test data policy
-- All test cases, mocks and fixtures must use synthetic data only. Never use real personal, patient, customer, employee, or production records.
-- Never store real credentials, tokens, or secrets in source or test artifacts. Redact logs, traces, screenshots, and AI prompts.
-- Delegate security review to `agents/test-data-security-validator.md`; run `python3 scripts/validate_test_data.py --root .` before requesting commit approval.
-- Security findings block changes until resolved. Existing explicit review-before-commit and 10-file PR rules remain mandatory.
-
-## Mandatory synthetic test data policy
-- All test cases, mocks and fixtures must use synthetic data only. Never use real personal, patient, customer, employee, or production records.
-- Never store real credentials, tokens, or secrets in source or test artifacts. Redact logs, traces, screenshots, and AI prompts.
-- Delegate security review to `agents/test-data-security-validator.md`; run `python3 scripts/validate_test_data.py --root .` before requesting commit approval.
-- Security findings block changes until resolved. Existing explicit review-before-commit and 10-file PR rules remain mandatory.
-
-## Mandatory synthetic test data policy
-- All test cases, mocks and fixtures must use synthetic data only. Never use real personal, patient, customer, employee, or production records.
-- Never store real credentials, tokens, or secrets in source or test artifacts. Redact logs, traces, screenshots, and AI prompts.
-- Delegate security review to `agents/test-data-security-validator.md`; run `python3 scripts/validate_test_data.py --root .` before requesting commit approval.
-- Security findings block changes until resolved. Existing explicit review-before-commit and 10-file PR rules remain mandatory.
-
 ## Test coverage checker
 Run `python3 scripts/check_test_coverage.py` to check requirement traceability. See `agents/test-coverage-checker.md`. Do not claim execution or line coverage from this metric. Approval required before commits; 10-file PR maximum.
 

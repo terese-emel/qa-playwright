@@ -15,4 +15,13 @@ jobs:
         with:
           python-version: "3.12"
       - name: Reject sensitive test data
-        run: python3 scripts/validate_test_data.py --root .
+        run: |
+          mkdir -p .qa-artifacts
+          python3 scripts/validate_test_data.py --root . --output .qa-artifacts/security-findings.json
+      - name: Upload security findings
+        if: failure()
+        uses: actions/upload-artifact@v4
+        with:
+          name: security-findings-${{ github.run_id }}
+          path: .qa-artifacts/security-findings.json
+          if-no-files-found: ignore
