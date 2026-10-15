@@ -37,6 +37,8 @@ flowchart LR
 
 The full design is documented in [`docs/test-architecture.md`](docs/test-architecture.md).
 
+Tool-specific guidance is in [`docs/tool-best-practices.md`](docs/tool-best-practices.md) and is applied by the Requirement Analyst, Planner, Generator, and Healer workflow.
+
 The most important team rule is simple: a test repair must never quietly weaken what the test is meant to prove.
 
 ## Technology
@@ -46,7 +48,7 @@ The most important team rule is simple: a test repair must never quietly weaken 
 - GitHub Actions for repeatable CI
 - ESLint and Prettier for code quality
 - Python scripts for test-data safety and requirement traceability
-- Optional Jira CLI skill for reading requirements and reporting approved updates
+- Shared Jira CLI skill in `qa-orchestrator/.agents/skills/jira-acli/` for reading requirements and reporting approved updates
 - Portable Agent Skills under [`.agents/skills/`](.agents/skills/)
 
 ## Project structure
@@ -111,7 +113,7 @@ The repository separates team responsibilities so work can happen in parallel wi
 | Coverage checker | Confirms important product needs have named tests |
 | Security validator | Helps keep personal data, production data, and secrets out |
 
-Portable versions of these capabilities live under [`.agents/skills/`](.agents/skills/). The `jira-acli` skill can read Jira stories and acceptance criteria for the Requirement Analyst. Any Jira write—comment, edit, transition, assignment, or bug creation—requires explicit approval.
+Portable versions of the QA capabilities live under [`.agents/skills/`](.agents/skills/). Shared cross-tool skills, including `jira-acli` and `skill-creator`, live in the [`qa-orchestrator`](https://github.com/terese-emel/qa-orchestrator) repository. The Jira skill can read stories and acceptance criteria for the Requirement Analyst; any Jira write—comment, edit, transition, assignment, or bug creation—requires explicit approval.
 
 ## Safety and review
 
