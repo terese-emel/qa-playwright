@@ -9,7 +9,7 @@ on:
         type: string
   pull_request:
   push:
-    branches: [main, master]
+    branches: [master]
 permissions:
   contents: read
 concurrency:
