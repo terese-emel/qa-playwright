@@ -17,6 +17,40 @@ GitHub Actions: `.github/workflows/playwright.yml`.
 
 The current smoke test uses a deterministic synthetic page so local and CI results are not dependent on public internet availability.
 
+## Agent workflow: Planner → Generator → Healer
+
+Tests are produced and maintained by three agents, each with a hard boundary. See [`docs/test-architecture.md`](docs/test-architecture.md) for the full description.
+
+- **Planner** — explores the app, writes a Markdown test plan to `coverage/`. No code is generated; a human approves the plan first.
+- **Generator** — turns an approved plan into Page Object-based Playwright specs, validating selectors against the live app before writing them.
+- **Healer** — fixes locator drift on failing tests. If the feature itself is broken it skips the test and logs the regression rather than weakening the assertion.
+
+The one rule agents cannot break: a "fix" that quietly weakens an assertion is a hidden bug, not a repair.
+
+```mermaid
+flowchart LR
+    Planner --> Plan[coverage/plan-*.md]
+    Plan --> HumanReview[Human review]
+    HumanReview --> Generator
+    Generator --> Tests[tests/ + pages/ + test-data/]
+    Tests --> CI[GitHub Actions]
+    CI -- failing run --> Healer
+    Healer -- locator drift --> Pages[pages/ fix]
+    Healer -- feature broken --> Skip[skip + coverage/skips.md]
+```
+
+## Agent mode: CLI vs MCP
+
+CI runs use **CLI mode** by default (snapshots saved to disk, ~27K tokens per task). For live exploration and debugging, set `PLAYWRIGHT_AGENT_MODE=mcp` (~114K tokens — about 4× more).
+
+```bash
+# default — lean CI runs
+npm run test:playwright
+
+# MCP mode — live page state in agent context
+PLAYWRIGHT_AGENT_MODE=mcp npx playwright test
+```
+
 ## Portfolio overview
 
 This project shows how I approach browser automation when the goal is a test suite that remains understandable as it grows. The smoke test is intentionally small, but it already uses a Page Object, a fixture, stable accessible locators, requirement traceability, and CI-friendly reporting. In other words, the test describes user intent while the reusable framework code owns setup and selectors.
@@ -49,6 +83,17 @@ To publish: `gh repo create YOUR-ACCOUNT/qa-playwright --private --source=. --re
 
 ## Independent ownership and orchestration
 This repository owns its own tests, dependencies, fixtures, configuration and GitHub Actions. It can run without the orchestrator. The separate `qa-orchestrator` repository may trigger its workflow and read the resulting status; it does not modify this repository. Make test changes here and review them independently.
+
+## Agent definitions
+
+| Agent | File | Role |
+| --- | --- | --- |
+| Planner | `agents/planner.md` | Explores app, writes plan in `coverage/` |
+| Generator | `agents/generator.md` | Turns approved plan into POM-based specs |
+| Healer | `agents/healer.md` | Fixes locator drift; skips on real regressions |
+| Flaky analyzer | `agents/flaky-test-analyzer.md` | Investigates intermittent failures |
+| Coverage checker | `agents/test-coverage-checker.md` | Verifies requirement traceability |
+| Security validator | `agents/test-data-security-validator.md` | Checks for real data in test artifacts |
 
 ## Flaky test analysis
 The independent subagent is defined in `agents/flaky-test-analyzer.md`. Collect JUnit XML reports across runs, then run `python3 scripts/analyze_flakiness.py path/to/junit-history --output flaky-report.json`. A mixed pass/fail history is flagged for investigation, not automatically fixed. Review is required before commits; PRs may change at most 10 files.
