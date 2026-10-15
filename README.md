@@ -72,7 +72,7 @@ qa-playwright/
 Requirements: Node.js, npm, and a Playwright-supported browser.
 
 ```bash
-npm install
+npm ci
 npx playwright install chromium
 npm run lint
 npm run format:check
