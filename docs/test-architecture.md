@@ -1,8 +1,8 @@
 # Test Architecture
 
-## Agent workflow: Planner → Generator → Healer
+## Agent workflow: Requirement Analyst → Planner → Generator → Healer
 
-Tests in this repository are produced and maintained through three co-operating agents. Each has a defined role and a hard boundary. Full definitions live in `agents/`.
+Tests in this repository are produced and maintained through four co-operating agents. Each has a defined role and a hard boundary. Full definitions live in `agents/`. Portable, client-agnostic versions of the same responsibilities live in `.agents/skills/`.
 
 ```text
            ┌──────────┐   approved plan   ┌───────────┐
@@ -23,7 +23,9 @@ Tests in this repository are produced and maintained through three co-operating 
                                          └─────────┘
 ```
 
-**Planner** (`agents/planner.md`) — explores the app using MCP or CLI snapshots and writes a Markdown plan to `coverage/plan-<slug>.md`. No code is generated. A human must approve the plan before the Generator runs.
+**Requirement Analyst** (`agents/requirement-analyst.md`) — turns product information into a shared brief at `coverage/requirement-<slug>.md`, clarifies missing decisions, and identifies users, business rules, risks, and dependencies. No test plan or code is generated.
+
+**Planner** (`agents/planner.md`) — explores the app using MCP or CLI snapshots and writes a Markdown plan to `coverage/plan-<slug>.md`. No code is generated. A human must approve the brief and plan before the Generator runs.
 
 **Generator** (`agents/generator.md`) — turns an approved plan into Page Object-based specs, validating selectors against the live app. Writes page objects to `pages/` (or `screens/`), shared components to `components/`, synthetic data factories to `test-data/`, and scenarios to `tests/`. Requires explicit human approval before committing.
 

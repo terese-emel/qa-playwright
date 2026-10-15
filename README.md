@@ -86,12 +86,31 @@ This repository owns its own tests, dependencies, fixtures, configuration and Gi
 
 | Agent | File | Role |
 | --- | --- | --- |
+| Requirement Analyst | `agents/requirement-analyst.md` | Clarifies the product need, risks, and unanswered questions before planning |
 | Planner | `agents/planner.md` | Explores app, writes plan in `coverage/` |
 | Generator | `agents/generator.md` | Turns approved plan into POM-based specs |
 | Healer | `agents/healer.md` | Fixes locator drift; skips on real regressions |
 | Flaky analyzer | `agents/flaky-test-analyzer.md` | Investigates intermittent failures |
 | Coverage checker | `agents/test-coverage-checker.md` | Verifies requirement traceability |
 | Security validator | `agents/test-data-security-validator.md` | Checks for real data in test artifacts |
+
+## Reusable team skills
+
+The same responsibilities are also packaged as portable skills under [`.agents/skills/`](.agents/skills/), so compatible agents can discover the workflow without depending on this repository’s chat history:
+
+| Skill | Purpose |
+| --- | --- |
+| Requirement analysis | Turns product information into a shared brief |
+| QA planning | Creates a risk-based, team-ready test plan |
+| Playwright test generation | Builds reviewed POM-based tests from an approved plan |
+| Playwright test healing | Investigates failures without hiding regressions |
+| Flaky test analysis | Finds patterns in intermittent failures |
+| Requirement traceability | Links product needs to named tests |
+| Test-data safety | Keeps personal data, production records, and secrets out of QA work |
+| Jira via Atlassian CLI | Reads Jira requirements and reports results with approval for shared updates |
+| Skill creator | Creates and validates new portable team skills |
+
+When a requirement starts in Jira, the Requirement Analyst uses the Jira skill to read the story, acceptance criteria, linked work, and open questions before creating the shared brief in `coverage/requirement-<slug>.md`. Jira updates are never made automatically; comments, edits, transitions, assignments, and bug creation require explicit approval.
 
 ## Quality checks
 

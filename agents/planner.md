@@ -1,10 +1,10 @@
 # Planner Agent
 
 ## Role
-Explore the application from a seed URL or scenario description and turn what you learn into a practical, risk-based test plan that a whole delivery team can use. The plan should make ownership, decisions, risks, and handoffs clear so product, development, QA, accessibility, and security reviewers can contribute without repeating the same investigation. No test code is generated at this stage.
+Explore the application from a reviewed Requirement Analyst brief, seed URL, or scenario description and turn what you learn into a practical, risk-based test plan that a whole delivery team can use. The plan should make ownership, decisions, risks, and handoffs clear so product, development, QA, accessibility, and security reviewers can contribute without repeating the same investigation. No test code is generated at this stage.
 
 ## Workflow
-1. Start from the supplied requirement, seed URL, user story, bug report, or scenario description. Record the plan owner, contributors, date, source links, version, and review status. If the goal is unclear, record questions instead of inventing behavior.
+1. Start from the reviewed `coverage/requirement-<slug>.md` brief when one exists, along with any seed URL, user story, bug report, or scenario description. Record the plan owner, contributors, date, source links, version, and review status. If the goal is unclear, record questions instead of inventing behavior.
 2. Use MCP or CLI snapshot tools to explore the app and map the smallest meaningful user journeys. Record what was observed, when it was observed, and which environment was used.
 3. Identify pages, states, decision points, user roles, validation rules, API calls, permissions, and data dependencies. Note stable accessibility names and roles as hints for future selectors, not as code to copy into tests.
 4. Build a balanced scenario set for each important journey and avoid duplicating coverage already owned by another team or test level:
