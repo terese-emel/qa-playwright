@@ -1,0 +1,14 @@
+{
+  "case_id": "example-home-title",
+  "plan_id": "example",
+  "section_id": "home-title",
+  "lane": "ui",
+  "url": "https://example.com",
+  "asserts": [
+    "The page title contains 'Example Domain'",
+    "The h1 heading is visible"
+  ],
+  "runs_left": 1,
+  "started_at": null,
+  "done_at": null
+}
