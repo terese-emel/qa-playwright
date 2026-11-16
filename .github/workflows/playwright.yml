@@ -19,6 +19,10 @@ jobs:
   test:
     runs-on: ubuntu-latest
     timeout-minutes: 25
+    strategy:
+      fail-fast: false
+      matrix:
+        shard: [1, 2, 3, 4]
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
@@ -30,24 +34,55 @@ jobs:
         run: npm ci --no-audit --no-fund
       - name: Check linting
         run: npm run lint
+        if: matrix.shard == 1
       - name: Check formatting
         run: npm run format:check
+        if: matrix.shard == 1
       - name: Install Chromium
         run: npx playwright install --with-deps chromium
-      - name: Execute Playwright UI
+      - name: Execute Playwright UI (shard ${{ matrix.shard }}/4)
         env:
           RUN_LIVE_DEMO: "true"
           DEMO_BASE_URL: http://127.0.0.1:3000
           DEMO_USER: ${{ vars.DEMO_USER }}
           DEMO_PASSWORD: ${{ vars.DEMO_PASSWORD }}
-        run: npm run test:playwright
-      - name: Upload logs and reports
+        run: npx playwright test --shard=${{ matrix.shard }}/4
+      - name: Upload blob report
         if: always()
         uses: actions/upload-artifact@v4
         with:
-          name: qa-playwright-${{ github.run_id }}
+          name: blob-report-shard-${{ matrix.shard }}-${{ github.run_id }}
           path: |
+            blob-report/
+            reports/results.xml
             .qa-artifacts/
-            reports/
             ${{ runner.temp }}/sample-app-web.log
+          if-no-files-found: warn
+
+  merge-reports:
+    needs: test
+    runs-on: ubuntu-latest
+    if: always()
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "24.9.0"
+      - name: Install project dependencies
+        run: npm ci --no-audit --no-fund
+      - name: Download blob reports from all shards
+        uses: actions/download-artifact@v4
+        with:
+          pattern: blob-report-shard-*-${{ github.run_id }}
+          path: all-blobs
+          merge-multiple: true
+      - name: Merge blob reports into HTML
+        run: |
+          mkdir -p reports/html
+          npx playwright merge-reports --reporter html all-blobs
+      - name: Upload merged report
+        uses: actions/upload-artifact@v4
+        with:
+          name: qa-playwright-merged-${{ github.run_id }}
+          path: reports/html
           if-no-files-found: warn

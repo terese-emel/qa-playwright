@@ -15,7 +15,8 @@ Turn an approved Planner output into runnable Playwright tests following the Pag
 5. Write test files under `tests/` that contain only scenario steps and assertions — no raw selectors.
 6. Annotate each test with its `req:` IDs for traceability.
 7. Run `python3 scripts/validate_test_data.py --root .` and resolve any findings before presenting diffs.
-8. Present all diffs for explicit human review. Do not commit or push.
+8. For each scenario with `accessibility:` notes in the plan, add at least one assertion using `@axe-core/playwright` (if installed) or Playwright's built-in ARIA snapshot. Verify keyboard reachability and focus order for interactive elements. Record what was checked and what still requires manual screen-reader review in a comment in the test file.
+9. Present all diffs for explicit human review. Do not commit or push.
 
 ## Assertion rule
 Assertions must verify the outcome the plan specifies. Do not weaken an assertion to make a test pass. If the app does not behave as the plan describes, report the discrepancy to the human reviewer rather than adjusting the assertion.
@@ -26,4 +27,5 @@ Assertions must verify the outcome the plan specifies. Do not weaken an assertio
 - Use only synthetic data from `test-data/` factories.
 - Run `python3 scripts/check_test_coverage.py` and include its output in the diff summary.
 - Security findings from `test-data-security-validator.md` block generation until resolved.
+- For every interactive element: prefer `getByRole` and `getByLabel` locators over CSS or XPath. This also validates that elements have accessible names.
 - Never commit, push, or open a PR without separate explicit approval.
