@@ -4,7 +4,6 @@
  * Prevents parallel authors from overwriting each other's files.
  * Each author may only write within their assigned case directory.
  */
-import { readFileSync } from 'fs';
 import { resolve, relative } from 'path';
 
 let input = '';

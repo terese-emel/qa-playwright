@@ -5,7 +5,6 @@
  */
 import { test, expect } from '@playwright/test';
 
-test('canary: this test always fails', async ({ page }) => {
-  // This assertion always fails to prove the gates work
+test('canary: this test always fails', async () => {
   expect(false).toBe(true);
 });

@@ -5,7 +5,7 @@
  * Gates 5–8 require execution and are triggered by the orchestrator after a real spec run.
  */
 import { existsSync, readFileSync, writeFileSync, mkdirSync } from 'fs';
-import { resolve, relative } from 'path';
+import { resolve } from 'path';
 
 let input = '';
 process.stdin.setEncoding('utf8');
@@ -33,14 +33,14 @@ if (!caseId) {
 // Run gates 1–4
 const { runStaticGates } = await import('../gates/static.mjs');
 const content = readFileSync(resolve(filePath), 'utf8');
-const results = await runStaticGates(content, filePath);
+const results = await runStaticGates(content);
 
 mkdirSync(resolve('run/guard'), { recursive: true });
 
 const verdictPath = resolve(`run/guard/${caseId}.json`);
 let existing = {};
 if (existsSync(verdictPath)) {
-  try { existing = JSON.parse(readFileSync(verdictPath, 'utf8')); } catch {}
+  try { existing = JSON.parse(readFileSync(verdictPath, 'utf8')); } catch { existing = {}; }
 }
 
 const updated = {

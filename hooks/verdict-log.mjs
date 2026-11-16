@@ -17,7 +17,7 @@ mkdirSync(resolve('run/guard'), { recursive: true });
 const verdictPath = resolve(`run/guard/${caseId}.json`);
 let verdict = {};
 if (existsSync(verdictPath)) {
-  try { verdict = JSON.parse(readFileSync(verdictPath, 'utf8')); } catch {}
+  try { verdict = JSON.parse(readFileSync(verdictPath, 'utf8')); } catch { verdict = {}; }
 }
 
 // Mark the sub-agent as done
@@ -30,7 +30,7 @@ writeFileSync(verdictPath, JSON.stringify(verdict, null, 2));
 const statusFile = resolve('run/status.json');
 let status = {};
 if (existsSync(statusFile)) {
-  try { status = JSON.parse(readFileSync(statusFile, 'utf8')); } catch {}
+  try { status = JSON.parse(readFileSync(statusFile, 'utf8')); } catch { status = {}; }
 }
 status.active_case = null;
 status.last_completed = caseId;

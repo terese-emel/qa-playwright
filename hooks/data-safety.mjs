@@ -4,10 +4,7 @@
  * Prevents any test from locking or modifying a shared account.
  * Blocks commands that reference shared account identifiers.
  */
-import { readFileSync, existsSync } from 'fs';
-import { resolve } from 'path';
 
-// Read the tool input from stdin (Claude Code passes JSON on stdin for hooks)
 let input = '';
 process.stdin.setEncoding('utf8');
 for await (const chunk of process.stdin) {

@@ -10,7 +10,7 @@ const PLAYWRIGHT_RULES = [
   { name: 'uses-await', test: c => /await/.test(c), msg: 'Must use await' },
   { name: 'no-page-pause', test: c => !/page\.pause\(/.test(c), msg: 'No page.pause()' },
   { name: 'uses-expect', test: c => /expect\(/.test(c), msg: 'Must use expect()' },
-  { name: 'no-eval', test: c => !/page\.evaluate\(.*=>/.test(c) || /page\.evaluate/.test(c) === false, msg: 'Avoid page.evaluate with arrow functions' },
+  { name: 'no-eval', test: c => !/page\.evaluate\(.*=>/.test(c), msg: 'Avoid page.evaluate with arrow functions' },
   { name: 'has-test-block', test: c => /test\(/.test(c), msg: 'Must have test() block' },
   { name: 'uses-locator', test: c => /locator\(|getBy/.test(c), msg: 'Must use locator or getBy*' },
   { name: 'no-xpath-only', test: c => !/locator\('xpath=/.test(c), msg: 'Avoid XPath-only locators' },
@@ -22,10 +22,10 @@ const PLAYWRIGHT_RULES = [
 // Gate 4: no secret leak
 function checkNoSecretLeak(content) {
   const SECRET_PATTERNS = [
-    /password\s*=\s*['"\`][^'"\`]{4,}/i,
-    /api[_-]?key\s*=\s*['"\`][^'"\`]{8,}/i,
-    /token\s*=\s*['"\`][^'"\`]{16,}/i,
-    /secret\s*=\s*['"\`][^'"\`]{8,}/i,
+    /password\s*=\s*['"`][^'"`]{4,}/i,
+    /api[_-]?key\s*=\s*['"`][^'"`]{8,}/i,
+    /token\s*=\s*['"`][^'"`]{16,}/i,
+    /secret\s*=\s*['"`][^'"`]{8,}/i,
     /-----BEGIN (RSA|EC|OPENSSH) PRIVATE KEY-----/,
   ];
   for (const pattern of SECRET_PATTERNS) {
@@ -45,7 +45,7 @@ function checkAssertCovered(content) {
   return { pass: true, msg: `${assertCount} assertion(s) found` };
 }
 
-export async function runStaticGates(content, filePath) {
+export async function runStaticGates(content) {
   const results = [];
 
   // Gate 2: Playwright rules

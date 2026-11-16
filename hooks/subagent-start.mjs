@@ -31,7 +31,7 @@ mkdirSync(resolve('run'), { recursive: true });
 const statusFile = resolve('run/status.json');
 let status = {};
 if (existsSync(statusFile)) {
-  try { status = JSON.parse(readFileSync(statusFile, 'utf8')); } catch {}
+  try { status = JSON.parse(readFileSync(statusFile, 'utf8')); } catch { status = {}; }
 }
 status.active_case = caseId;
 status.state = 'running';
