@@ -1,4 +1,6 @@
 import { test as base, type APIRequestContext } from "@playwright/test";
+import { validate } from "../contracts";
+export { validate };
 
 type ApiFixtures = {
   api: APIRequestContext;

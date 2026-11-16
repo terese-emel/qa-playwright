@@ -1,0 +1,35 @@
+name: Visual Regression
+
+on:
+  pull_request:
+  push:
+    branches:
+      - main
+
+jobs:
+  visual-regression:
+    runs-on: ubuntu-latest
+    # Run inside the official Playwright image so font rendering is identical
+    # to the baselines committed in visual-baselines/.
+    container:
+      image: mcr.microsoft.com/playwright:v1.56.0-noble
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Run visual regression tests
+        run: npx playwright test tests/visual-regression.spec.ts
+        env:
+          # Point at a deployed preview URL to enable the tests.
+          DEMO_BASE_URL: ${{ vars.DEMO_BASE_URL }}
+
+      - name: Upload diff artifacts on failure
+        if: failure()
+        uses: actions/upload-artifact@v4
+        with:
+          name: visual-diff-${{ github.run_id }}
+          path: .qa-artifacts/
+          retention-days: 7
