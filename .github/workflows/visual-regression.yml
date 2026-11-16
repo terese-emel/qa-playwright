@@ -12,7 +12,7 @@ jobs:
     # Run inside the official Playwright image so font rendering is identical
     # to the baselines committed in visual-baselines/.
     container:
-      image: mcr.microsoft.com/playwright:v1.56.0-noble
+      image: mcr.microsoft.com/playwright:v1.64.1-noble
 
     steps:
       - uses: actions/checkout@v4
