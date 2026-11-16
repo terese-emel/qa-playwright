@@ -10,7 +10,10 @@ type ApiFixtures = {
 export const test = base.extend<ApiFixtures>({
   api: async ({ playwright }, use) => {
     const context = await playwright.request.newContext({
-      baseURL: process.env.API_BASE_URL ?? process.env.DEMO_BASE_URL ?? "http://127.0.0.1:3000",
+      baseURL:
+        process.env.API_BASE_URL ??
+        process.env.DEMO_BASE_URL ??
+        "http://127.0.0.1:3000",
       extraHTTPHeaders: {
         Accept: "application/json",
       },

@@ -15,7 +15,10 @@
 import { expect, test } from "../fixtures/api";
 
 // Skipped until a real API endpoint is configured via API_BASE_URL.
-test.skip(!process.env.API_BASE_URL, "Set API_BASE_URL to enable API smoke tests.");
+test.skip(
+  !process.env.API_BASE_URL,
+  "Set API_BASE_URL to enable API smoke tests.",
+);
 
 test.describe("API smoke", () => {
   test("health endpoint returns 200", async ({ api }) => {
