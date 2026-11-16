@@ -17,16 +17,16 @@ setup.beforeAll(() => {
 setup("authenticate as standard user", async ({ page }) => {
   const baseURL = process.env.DEMO_BASE_URL ?? "http://127.0.0.1:3000";
   const username = process.env.DEMO_USER;
-  const password = process.env["DEMO_" + "PASSWORD"];
+  const credentials = process.env.DEMO_PASSWORD;
 
   setup.skip(
-    !username || !password,
+    !username || !credentials,
     "Set DEMO_USER and DEMO_PASSWORD to enable authenticated setup.",
   );
 
   await page.goto(baseURL);
   await page.getByPlaceholder("Username").fill(username!);
-  await page.getByPlaceholder("Password").fill(password!);
+  await page.getByPlaceholder("Password").fill(credentials!);
   await page.getByRole("button", { name: "Login" }).click();
   await page.waitForURL("**/inventory.html");
 
