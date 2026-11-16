@@ -1,4 +1,4 @@
-import { defineConfig } from "@playwright/test";
+import { defineConfig, devices } from "@playwright/test";
 
 // Agent mode: CLI is the default for lean, repeatable runs (~4x fewer tokens than MCP).
 // Set PLAYWRIGHT_AGENT_MODE=mcp for live exploration and debugging sessions.
@@ -19,4 +19,19 @@ export default defineConfig({
     // MCP mode: live page state sent to agent at every step; use for exploration/debugging.
     ...(agentMode === "mcp" ? { _optionValueForMcpMode: true } : {}),
   },
+  projects: [
+    // Auth setup runs first; each role logs in once and saves storageState to disk.
+    // Tests that require an authenticated session declare `dependencies: ["setup"]`
+    // and receive the saved state via `storageState` in their `use` block.
+    {
+      name: "setup",
+      testMatch: /auth\.setup\.ts/,
+    },
+    {
+      name: "chromium",
+      use: { ...devices["Desktop Chrome"] },
+      // Remove the dependency below for tests that do not need authentication.
+      dependencies: ["setup"],
+    },
+  ],
 });
