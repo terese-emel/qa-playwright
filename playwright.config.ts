@@ -7,10 +7,17 @@ const agentMode = process.env.PLAYWRIGHT_AGENT_MODE ?? "cli";
 export default defineConfig({
   testDir: "./tests",
   outputDir: ".qa-artifacts",
-  reporter: [
-    ["html", { outputFolder: "reports/html", open: "never" }],
-    ["junit", { outputFile: "reports/results.xml" }],
-  ],
+  reporter: process.env.CI
+    ? [
+        // Blob reporter collects results per shard; a separate merge-reports job
+        // combines them into a single HTML report after all shards finish.
+        ["blob", { outputDir: "blob-report" }],
+        ["junit", { outputFile: "reports/results.xml" }],
+      ]
+    : [
+        ["html", { outputFolder: "reports/html", open: "never" }],
+        ["junit", { outputFile: "reports/results.xml" }],
+      ],
   retries: process.env.CI ? 1 : 0,
   use: {
     trace: "on-first-retry",
