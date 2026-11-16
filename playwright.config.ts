@@ -7,6 +7,14 @@ const agentMode = process.env.PLAYWRIGHT_AGENT_MODE ?? "cli";
 export default defineConfig({
   testDir: "./tests",
   outputDir: ".qa-artifacts",
+  snapshotDir: "./visual-baselines",
+  expect: {
+    toHaveScreenshot: {
+      // Allow up to 0.2% of pixels to differ before failing.
+      maxDiffPixelRatio: 0.002,
+      threshold: 0.1,
+    },
+  },
   reporter: process.env.CI
     ? [
         // Blob reporter collects results per shard; a separate merge-reports job
