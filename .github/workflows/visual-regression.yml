@@ -23,6 +23,7 @@ jobs:
       - name: Run visual regression tests
         run: npx playwright test tests/visual-regression.spec.ts
         env:
+          RUN_VISUAL_REGRESSION: "true"
           # Point at a deployed preview URL to enable the tests.
           DEMO_BASE_URL: ${{ vars.DEMO_BASE_URL }}
 

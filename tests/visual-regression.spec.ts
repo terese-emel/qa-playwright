@@ -17,11 +17,12 @@
 
 import { expect, test } from "@playwright/test";
 
-// Skipped until a base URL is configured. Set DEMO_BASE_URL or BASE_URL to
-// enable these tests in your environment.
+// Skipped unless RUN_VISUAL_REGRESSION=true is explicitly set.
+// This prevents the spec from running in the general sharded CI suite
+// before baselines have been generated with --update-snapshots.
 test.skip(
-  !process.env.DEMO_BASE_URL && !process.env.BASE_URL,
-  "Set DEMO_BASE_URL or BASE_URL to enable visual regression tests.",
+  !process.env.RUN_VISUAL_REGRESSION,
+  "Set RUN_VISUAL_REGRESSION=true to enable visual regression tests.",
 );
 
 const baseURL =
