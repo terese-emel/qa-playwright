@@ -1,0 +1,7 @@
+{
+  "state": "idle",
+  "active_case": null,
+  "last_completed": null,
+  "app_health": "unknown",
+  "consecutive_failures": 0
+}
