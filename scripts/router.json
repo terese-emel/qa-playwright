@@ -1,0 +1,10 @@
+{
+  "_comment": "Maps plan type to agent lane template. Used by the orchestrator to decide which agent handles each case.",
+  "routes": {
+    "ui": "agents/lanes/ui-author.md",
+    "api": "agents/lanes/api-author.md",
+    "e2e-ui": "agents/lanes/e2e-ui-author.md",
+    "e2e-api": "agents/lanes/e2e-api-author.md"
+  },
+  "default": "agents/lanes/ui-author.md"
+}
