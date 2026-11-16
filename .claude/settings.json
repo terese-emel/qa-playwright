@@ -1,0 +1,67 @@
+{
+  "hooks": {
+    "PreToolUse": [
+      {
+        "matcher": "*",
+        "hooks": [
+          { "type": "command", "command": "node hooks/halt.mjs" }
+        ]
+      },
+      {
+        "matcher": "Bash",
+        "hooks": [
+          { "type": "command", "command": "node hooks/spawn-check.mjs" },
+          { "type": "command", "command": "node hooks/data-safety.mjs" },
+          { "type": "command", "command": "node hooks/breaker.mjs" }
+        ]
+      },
+      {
+        "matcher": "Write",
+        "hooks": [
+          { "type": "command", "command": "node hooks/write-scope.mjs" }
+        ]
+      },
+      {
+        "matcher": "Edit",
+        "hooks": [
+          { "type": "command", "command": "node hooks/write-scope.mjs" }
+        ]
+      },
+      {
+        "matcher": "mcp__github__push_files",
+        "hooks": [
+          { "type": "command", "command": "node hooks/accept-check.mjs" }
+        ]
+      }
+    ],
+    "PostToolUse": [
+      {
+        "matcher": "Bash",
+        "hooks": [
+          { "type": "command", "command": "node hooks/tool-io-log.mjs" }
+        ]
+      },
+      {
+        "matcher": "Write",
+        "hooks": [
+          { "type": "command", "command": "node hooks/gates.mjs" }
+        ]
+      }
+    ],
+    "SubagentStart": [
+      {
+        "hooks": [
+          { "type": "command", "command": "node hooks/subagent-start.mjs" }
+        ]
+      }
+    ],
+    "SubagentStop": [
+      {
+        "hooks": [
+          { "type": "command", "command": "node hooks/stop-gate.mjs" },
+          { "type": "command", "command": "node hooks/verdict-log.mjs" }
+        ]
+      }
+    ]
+  }
+}
