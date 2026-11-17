@@ -36,3 +36,42 @@ Run `python3 scripts/check_test_coverage.py` to check requirement traceability. 
 - Page/screen objects must not hide business assertions; keep outcome verification visible in tests, except reusable page-ready checks.
 - Review generated tests against `docs/test-architecture.md` before presenting diffs for approval.
 - Preserve existing tests and files; refactor legacy nonconforming tests only with explicit scope and approval.
+
+## Agent pipeline
+
+This repository defines two overlapping agent sets. Use the set that fits the task.
+
+### Core agents (POM-focused automation)
+
+```text
+Requirement Analyst → Planner → human review → Generator → Healer
+```
+
+| Agent | File | Purpose |
+|---|---|---|
+| Requirement Analyst | `agents/requirement-analyst.md` | Full collaborative requirements brief |
+| Planner | `agents/planner.md` | POM-oriented test plan with selector hints |
+| Generator | `agents/generator.md` | Playwright test code from an approved plan |
+| Healer | `agents/healer.md` | Locator drift repair |
+| Flaky Test Analyzer | `agents/flaky-test-analyzer.md` | Intermittent failure investigation |
+| Test Coverage Checker | `agents/test-coverage-checker.md` | Requirement traceability |
+| Test Data Security Validator | `agents/test-data-security-validator.md` | Synthetic data safety review |
+
+### Extended agents (full QA lifecycle)
+
+```text
+Requirement Analysis Agent → Test Planning Agent → Test Case Generator Agent
+       → Automation Agent → Execution Agent → Validation Agent
+       → Bug Analysis Agent → Reporting Agent
+```
+
+| Agent | File | Purpose |
+|---|---|---|
+| Requirement Analysis Agent | `agents/requirement-analysis-agent.md` | Scenario identification from requirements |
+| Test Planning Agent | `agents/test-planning-agent.md` | Execution strategy and suite prioritisation |
+| Test Case Generator Agent | `agents/test-case-generator-agent.md` | Human-readable test cases from plans |
+| Automation Agent | `agents/automation-agent.md` | Playwright scripts from approved test cases |
+| Execution Agent | `agents/execution-agent.md` | Run suites and collect evidence |
+| Validation Agent | `agents/validation-agent.md` | Actual vs. expected result comparison |
+| Bug Analysis Agent | `agents/bug-analysis-agent.md` | Failure classification and bug reports |
+| Reporting Agent | `agents/reporting-agent.md` | Execution reports with actionable insights |
