@@ -62,7 +62,7 @@ This rule applies to new or modified test cases; pre-existing examples are retai
 
 ## Agent mode: CLI vs MCP
 
-The default agent mode is **CLI**: Playwright runs commands and saves snapshots to disk. This keeps agent context-window usage low (approximately 27K tokens per task vs 114K for MCP).
+The default agent mode is **CLI**: Playwright runs commands and saves snapshots to disk. This keeps agent context-window usage low (approximately 27K tokens per task vs 114K for MCP). The GitHub Actions workflow owns this setting and defaults to CLI for pushes and pull requests.
 
 **MCP mode** sends live page state to the agent at every step and is better for exploration and debugging. Enable it with:
 
@@ -70,46 +70,4 @@ The default agent mode is **CLI**: Playwright runs commands and saves snapshots 
 PLAYWRIGHT_AGENT_MODE=mcp npx playwright test
 ```
 
-CI runs always use the default (CLI) mode. Reserve MCP for local investigation.
-
----
-
-## Authentication setup
-
-`tests/auth.setup.ts` logs in once per role and writes `storageState` to `.qa-artifacts/auth/`.
-Tests that require an authenticated session declare `dependencies: ["setup"]` in `playwright.config.ts`
-and receive the saved session through the `storageState` path.
-
-Add a new `setup(...)` block in `auth.setup.ts` for each additional role (e.g. admin, read-only). Name the
-exported constant after the role and reference it from fixtures or directly in test files.
-
----
-
-## API tests
-
-`fixtures/api.ts` exports an `api` fixture backed by `playwright.request`. API tests:
-- Import `test, expect` from `../fixtures/api` instead of `../fixtures/test`.
-- Use `api.get(...)`, `api.post(...)` etc. — no `page` needed.
-- Assert status codes, response shapes, and business rules.
-- Run in the same CI pipeline as UI tests; they are cheaper and faster than E2E.
-
----
-
-## Accessibility
-
-Every scenario with an `accessibility:` entry in its plan must include at minimum:
-- A `getByRole` / `getByLabel` locator for each interactive element (also validates accessible names).
-- A keyboard-navigation check: tab through the form or flow and assert focus reaches each control.
-- A comment in the test noting what was checked and what still requires a manual screen-reader review.
-
-Install `@axe-core/playwright` for automated ARIA-tree scans; use `checkA11y` as an assertion in the test file, not inside a page object.
-
----
-
-## CI sharding
-
-The `playwright.yml` workflow shards tests across 4 parallel jobs (`--shard=N/4`). A `merge-reports` job
-downloads all shard artifacts and merges them into a single HTML report.
-
-To add more shards: increase the `matrix.shard` array in the workflow and update the `--shard=N/4` total
-in the `run:` step.
+For a manual GitHub Actions run, select `mcp` in the workflow's `agent_mode` input. The repository still requires an approved Playwright MCP server to be available to the agent; selecting the mode alone does not install or provide that server.

@@ -7,6 +7,14 @@ on:
         description: Correlation ID from central orchestrator
         required: false
         type: string
+      agent_mode:
+        description: Playwright agent mode for exploration or deterministic execution
+        required: false
+        default: cli
+        type: choice
+        options:
+          - cli
+          - mcp
   pull_request:
   push:
     branches: [master]
@@ -42,6 +50,7 @@ jobs:
         run: npx playwright install --with-deps chromium
       - name: Execute Playwright UI (shard ${{ matrix.shard }}/4)
         env:
+          PLAYWRIGHT_AGENT_MODE: ${{ inputs.agent_mode || 'cli' }}
           RUN_LIVE_DEMO: "true"
           DEMO_BASE_URL: http://127.0.0.1:3000
           DEMO_USER: ${{ vars.DEMO_USER }}
